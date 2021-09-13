@@ -1,16 +1,16 @@
 import Koa from "koa";
-import Boom from "@hapi/boom";
 
-import { router } from "./router";
 import { config } from "dotenv";
 import { env } from "./utils";
+
+import { connectWithDatabase } from "./config";
 
 config();
 
 export const runApp = async () => {
   const app: Koa<Koa.DefaultState, Koa.DefaultContext> = new Koa();
 
-  app.use(router.routes());
+  await connectWithDatabase(app);
 
   const port = env.number("SERVER_PORT", 5000);
   const host = env.string("SERVER_HOST", "localhost");

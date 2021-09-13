@@ -1,1 +1,1 @@
-export { env } from "./env-helper";
+export { ENV, env, kEnv } from "./env-helper";

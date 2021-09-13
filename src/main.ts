@@ -1,4 +1,6 @@
 import { runApp } from "./app";
+
+// Global modules
 import "colors";
 import "reflect-metadata";
 
