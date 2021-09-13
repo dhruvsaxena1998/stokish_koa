@@ -1,12 +1,8 @@
-import { runApp } from "./app";
+import { registerContainer } from "./injector";
+registerContainer();
 
-// Global modules
+import { App } from "./app";
 import "colors";
 import "reflect-metadata";
 
-runApp().catch((e) => {
-  console.log("----------- Error -----------".red.bold);
-  console.log(e);
-  console.log("----------- Error -----------".red.bold);
-  process.exit(1);
-});
+new App();

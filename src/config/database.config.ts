@@ -1,10 +1,11 @@
 import Koa, { DefaultState, DefaultContext } from "koa";
 import { createConnection, Connection, ConnectionOptions } from "typeorm";
-
+import { asValue } from "awilix";
 import { config } from "dotenv";
 import { ENV, kEnv } from "../utils";
 
 import { UsersEntity } from "../entities";
+import { container } from "../injector";
 config();
 
 const {
@@ -17,9 +18,7 @@ const {
 
 const entities = [UsersEntity];
 
-export const connectWithDatabase = async (
-  app: Koa<DefaultState, DefaultContext>
-): Promise<Connection> => {
+export const connectWithDatabase = async (): Promise<Connection> => {
   const options: ConnectionOptions = {
     type: "postgres",
     database: DB_NAME,
@@ -31,7 +30,9 @@ export const connectWithDatabase = async (
   };
 
   const connection = await createConnection(options);
-  app.context.database = connection;
+  container.register({
+    database: asValue(connection),
+  });
 
   await connection.synchronize(kEnv() === ENV.development);
 

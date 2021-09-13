@@ -1,23 +1,37 @@
-import Koa from "koa";
+import Koa, { DefaultState, DefaultContext } from "koa";
 
 import { config } from "dotenv";
-import { env } from "./utils";
-
-import { connectWithDatabase } from "./config";
-
 config();
 
-export const runApp = async () => {
-  const app: Koa<Koa.DefaultState, Koa.DefaultContext> = new Koa();
+import { env } from "./utils";
+import { Server } from "http";
 
-  await connectWithDatabase(app);
+import { router } from "./routes/user.routes";
+import { connectWithDatabase } from "./config";
 
-  const port = env.number("SERVER_PORT", 5000);
-  const host = env.string("SERVER_HOST", "localhost");
-  app.listen(port, host).on("listening", () => {
-    console.log(
-      "Server is up and running 🚀,\nTo access the server ⚡️, go to:".gray
-    );
-    console.log(`http://${host}:${port}`.blue.bold);
-  });
-};
+const port = env.number("SERVER_PORT") || 5000;
+const host = env.string("SERVER_HOST") || "localhost";
+
+export class App {
+  app: Koa<DefaultState, DefaultContext>;
+  server: Server;
+  constructor() {
+    this.app = new Koa();
+    this.setup();
+  }
+
+  private async setup() {
+    await connectWithDatabase();
+    this.app.use(router.routes()).use(router.allowedMethods());
+    this.run(port, host);
+  }
+
+  run(port: number, host: string) {
+    this.server = this.app.listen(port, host, () => {
+      console.log(
+        "Server is up and running 🚀,\nTo access the server ⚡️, go to:".gray
+      );
+      console.log(`http://${host}:${port}`.blue.bold);
+    });
+  }
+}
