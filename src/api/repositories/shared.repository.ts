@@ -1,7 +1,7 @@
 import { Repository } from "typeorm";
 
 export class SharedRepository<T> {
-  private readonly _entity: Repository<T>;
+  readonly _entity: Repository<T>;
   constructor(entity: Repository<T>) {
     this._entity = entity;
   }
