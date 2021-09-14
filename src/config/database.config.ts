@@ -1,12 +1,7 @@
-import Koa, { DefaultState, DefaultContext } from "koa";
 import { createConnection, Connection, ConnectionOptions } from "typeorm";
-import { asValue } from "awilix";
-import { config } from "dotenv";
-import { ENV, kEnv } from "../utils";
 
 import { UsersEntity } from "../entities";
-import { container } from "../injector";
-config();
+import { ENV, kEnv } from "../utils";
 
 const {
   DB_HOST = "localhost",
@@ -30,9 +25,6 @@ export const connectWithDatabase = async (): Promise<Connection> => {
   };
 
   const connection = await createConnection(options);
-  container.register({
-    database: asValue(connection),
-  });
 
   await connection.synchronize(kEnv() === ENV.development);
 

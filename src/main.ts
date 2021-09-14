@@ -1,8 +1,15 @@
-import { registerContainer } from "./injector";
-registerContainer();
+import { config } from "dotenv";
+config();
 
-import { App } from "./app";
+import { setupInjections } from "./injection";
+import { connectWithDatabase } from "./config/database.config";
+
 import "colors";
 import "reflect-metadata";
 
-new App();
+connectWithDatabase().then(async (db) => {
+  setupInjections(db);
+
+  const { App } = await import("./app");
+  new App();
+});

@@ -1,13 +1,10 @@
 import Koa, { DefaultState, DefaultContext } from "koa";
 
-import { config } from "dotenv";
-config();
-
-import { env } from "./utils";
+import { env, wait } from "./utils";
 import { Server } from "http";
 
-import { router } from "./routes/user.routes";
-import { connectWithDatabase } from "./config";
+import { connectWithDatabase, router } from "./config";
+import { Connection } from "typeorm";
 
 const port = env.number("SERVER_PORT") || 5000;
 const host = env.string("SERVER_HOST") || "localhost";
@@ -15,13 +12,13 @@ const host = env.string("SERVER_HOST") || "localhost";
 export class App {
   app: Koa<DefaultState, DefaultContext>;
   server: Server;
+  connection: Connection;
   constructor() {
     this.app = new Koa();
     this.setup();
   }
 
-  private async setup() {
-    await connectWithDatabase();
+  private setup() {
     this.app.use(router.routes()).use(router.allowedMethods());
     this.run(port, host);
   }
@@ -29,9 +26,11 @@ export class App {
   run(port: number, host: string) {
     this.server = this.app.listen(port, host, () => {
       console.log(
-        "Server is up and running 🚀,\nTo access the server ⚡️, go to:".gray
+        "Server is up and running 🚀".gray,
+        "\nTo access the server ⚡️, go to:".gray,
+        `http://${host}:${port}`.blue.bold,
+        "\n-----------------------------------------------------".blue
       );
-      console.log(`http://${host}:${port}`.blue.bold);
     });
   }
 }
