@@ -1,7 +1,8 @@
 import { createConnection, Connection, ConnectionOptions } from "typeorm";
 
 import { UsersEntity } from "../entities";
-import { logger, ENV } from "@dolanites/utils.js";
+import { env } from "@dolanites/utils.js";
+import { logger } from "../utils";
 
 const {
   DB_HOST = "localhost",
@@ -26,7 +27,7 @@ export const connectWithDatabase = async (): Promise<Connection> => {
 
   const connection = await createConnection(options);
 
-  await connection.synchronize(ENV.node_env === "development");
+  await connection.synchronize(env.node_env === "development");
 
   logger.debug(`Connected to ${options.type}:${options.database}`);
   return connection;

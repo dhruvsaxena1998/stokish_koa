@@ -9,4 +9,6 @@ const router = new Router({
 
 router.get("/:id", usersController.findOne);
 
+router.post("/", usersController.create);
+
 export { router };

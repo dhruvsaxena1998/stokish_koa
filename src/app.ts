@@ -1,13 +1,14 @@
 import Koa, { DefaultState, DefaultContext } from "koa";
-import { logger, ENV } from "@dolanites/utils.js";
-
+import bodyParser from "koa-bodyparser";
 import { Server } from "http";
+import { Connection } from "typeorm";
+import { env } from "@dolanites/utils.js";
 
 import { router } from "./config";
-import { Connection } from "typeorm";
+import { logger } from "./utils";
 
-const port = ENV.number("SERVER_PORT") || 5000;
-const host = ENV.string("SERVER_HOST") || "localhost";
+const port = env.number("SERVER_PORT") || 5000;
+const host = env.string("SERVER_HOST") || "localhost";
 
 export class App {
   app: Koa<DefaultState, DefaultContext>;
@@ -19,6 +20,11 @@ export class App {
   }
 
   private setup() {
+    this.app.use(
+      bodyParser({
+        enableTypes: ["json", "form"],
+      })
+    );
     this.app.use(router.routes()).use(router.allowedMethods());
     this.run(port, host);
   }

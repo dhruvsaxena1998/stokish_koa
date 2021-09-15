@@ -27,6 +27,7 @@
   ],
   "devDependencies": {
     "@types/koa": "^2.13.4",
+    "@types/koa-bodyparser": "^4.3.3",
     "@types/koa__router": "^8.0.8",
     "@types/lodash": "^4.14.172",
     "@types/node": "^16.9.1",
@@ -38,12 +39,13 @@
     "typescript": "^4.4.3"
   },
   "dependencies": {
-    "@dolanites/utils.js": "^1.0.1",
+    "@dolanites/utils.js": "^1.0.6",
     "@hapi/boom": "^9.1.4",
     "@koa/router": "^10.1.1",
     "awilix": "^5.0.1",
     "dotenv": "^10.0.0",
     "koa": "^2.13.1",
+    "koa-bodyparser": "^4.3.0",
     "lodash": "^4.17.21",
     "pg": "^8.7.1",
     "reflect-metadata": "^0.1.13",
