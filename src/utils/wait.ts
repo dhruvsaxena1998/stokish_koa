@@ -1,2 +1,2 @@
-export const wait = async (ms: number = 1000) =>
-  new Promise((resolve) => setTimeout(resolve, ms));
+export const wait = async (ms = 1000): Promise<boolean> =>
+  new Promise((resolve) => setTimeout(() => resolve(true), ms));

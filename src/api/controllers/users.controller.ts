@@ -9,7 +9,7 @@ export class UserController {
     this._service = userService;
   }
 
-  findOne = async (ctx: RouterContext) => {
+  findOne = async (ctx: RouterContext): Promise<void> => {
     ctx.body = await this._service.findOne(+ctx.params.id);
   };
 }

@@ -1,13 +1,13 @@
 import Koa, { DefaultState, DefaultContext } from "koa";
+import { logger, ENV } from "@dolanites/utils.js";
 
-import { env, wait } from "./utils";
 import { Server } from "http";
 
-import { connectWithDatabase, router } from "./config";
+import { router } from "./config";
 import { Connection } from "typeorm";
 
-const port = env.number("SERVER_PORT") || 5000;
-const host = env.string("SERVER_HOST") || "localhost";
+const port = ENV.number("SERVER_PORT") || 5000;
+const host = ENV.string("SERVER_HOST") || "localhost";
 
 export class App {
   app: Koa<DefaultState, DefaultContext>;
@@ -23,14 +23,10 @@ export class App {
     this.run(port, host);
   }
 
-  run(port: number, host: string) {
+  run(port: number, host: string): void {
     this.server = this.app.listen(port, host, () => {
-      console.log(
-        "Server is up and running 🚀".gray,
-        "\nTo access the server ⚡️, go to:".gray,
-        `http://${host}:${port}`.blue.bold,
-        "\n-----------------------------------------------------".blue
-      );
+      logger.debug("Server is up and running");
+      logger.debug(`To access the server, go to: http://${host}:${port}`);
     });
   }
 }

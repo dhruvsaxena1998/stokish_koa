@@ -1,7 +1,7 @@
 import { createConnection, Connection, ConnectionOptions } from "typeorm";
 
 import { UsersEntity } from "../entities";
-import { ENV, kEnv } from "../utils";
+import { logger, ENV } from "@dolanites/utils.js";
 
 const {
   DB_HOST = "localhost",
@@ -18,7 +18,7 @@ export const connectWithDatabase = async (): Promise<Connection> => {
     type: "postgres",
     database: DB_NAME,
     host: DB_HOST,
-    port: +DB_PORT!,
+    port: +DB_PORT,
     username: DB_USER,
     password: DB_PASS,
     entities,
@@ -26,10 +26,8 @@ export const connectWithDatabase = async (): Promise<Connection> => {
 
   const connection = await createConnection(options);
 
-  await connection.synchronize(kEnv() === ENV.development);
+  await connection.synchronize(ENV.node_env === "development");
 
-  console.log("\n----------- Connected -----------".green.bold);
-  console.log(`Connected to ${options.type}:${options.database}`.green);
-  console.log("---------------------------------\n".green.bold);
+  logger.debug(`Connected to ${options.type}:${options.database}`);
   return connection;
 };
