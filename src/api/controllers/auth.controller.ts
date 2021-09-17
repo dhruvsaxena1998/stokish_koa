@@ -2,21 +2,40 @@ import { Context } from "koa";
 import { AuthService } from "../services";
 
 import { Dependencies } from "../../injection";
+import { Failure } from "../../helpers/failure";
 
 export class AuthController {
   private _service: AuthService;
   constructor({ authService }: Dependencies) {
     this._service = authService;
 
-    this.register = this.register.bind(this);
+    this.registerViaEmail = this.registerViaEmail.bind(this);
+    this.loginViaIdentifier = this.loginViaIdentifier.bind(this);
   }
 
-  async register(ctx: Context): Promise<void> {
+  async registerViaEmail(ctx: Context): Promise<void> {
     try {
-      const response = await this._service.register(ctx.request.body);
+      const response = await this._service.registerViaEmail(ctx.request.body);
+      ctx.status = 201;
       ctx.body = response;
-    } catch (e: any) {
-      ctx.throw(e.message);
+    } catch (e) {
+      const { message } = <Error>e;
+
+      if (message.includes("duplicate")) {
+        throw Failure.badRequest("Duplicate value for unique constraint");
+      }
+
+      throw e;
+    }
+  }
+
+  async loginViaIdentifier(ctx: Context): Promise<void> {
+    try {
+      const response = await this._service.loginViaIdentifier(ctx.request.body);
+      ctx.status = 200;
+      ctx.body = response;
+    } catch (e) {
+      throw e;
     }
   }
 }

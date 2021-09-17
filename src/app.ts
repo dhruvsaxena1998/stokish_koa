@@ -1,11 +1,15 @@
 import Koa, { DefaultState, DefaultContext } from "koa";
 import bodyParser from "koa-bodyparser";
-import { Server } from "http";
-import { Connection } from "typeorm";
-import { env } from "@dolanites/utils.js";
-
 import { router } from "./config";
+
+// Utils
+import { env } from "@dolanites/utils.js";
 import { logger } from "./utils";
+
+// Types
+import { Connection } from "typeorm";
+import { Server } from "http";
+import { errorHandler } from "./middlewares/error-handler";
 
 const port = env.number("SERVER_PORT") || 5000;
 const host = env.string("SERVER_HOST") || "localhost";
@@ -25,6 +29,10 @@ export class App {
         enableTypes: ["json", "form"],
       })
     );
+
+    // Centeralized Error handler
+    this.app.use(errorHandler);
+
     this.app.use(router.routes()).use(router.allowedMethods());
     this.run(port, host);
   }

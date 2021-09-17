@@ -1,10 +1,16 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 import { SharedEntityProperties } from "./shared.entity";
 
-enum UserRole {
-  admin = "admin",
-  user = "user",
-}
+import { UserRole } from "../api/interface/user.interface";
+
+export const config = {
+  collectionName: "users",
+  info: {
+    name: "user",
+    description: "",
+  },
+  privateArrtibutes: ["password", "resetPasswordToken", "totp"],
+};
 
 @Entity({ name: "users" })
 export class UsersEntity extends SharedEntityProperties {
@@ -17,14 +23,20 @@ export class UsersEntity extends SharedEntityProperties {
   @Column({ name: "last_name", nullable: true })
   lastName: string;
 
-  @Column({ name: "username", unique: true, nullable: false })
+  @Column({ name: "username", unique: true, nullable: true })
   username: string;
 
-  @Column({ name: "email", unique: true, nullable: false })
+  @Column({ name: "email", unique: true, nullable: true })
   email: string;
 
-  @Column({ name: "password", nullable: false, type: "text" })
+  @Column({ name: "password", nullable: true, type: "text" })
   password: string;
+
+  @Column({ name: "contact", unique: true, nullable: true })
+  contact: string;
+
+  @Column({ name: "country_code", nullable: true, type: "smallint" })
+  countryCode: number;
 
   @Column({
     name: "role",
@@ -44,4 +56,11 @@ export class UsersEntity extends SharedEntityProperties {
     type: "text",
   })
   resetPasswordToken: string;
+
+  @Column({
+    name: "totp",
+    default: null,
+    nullable: true,
+  })
+  totp: string;
 }
