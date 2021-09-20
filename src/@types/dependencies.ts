@@ -1,7 +1,7 @@
 import { Connection } from "typeorm";
-import { AuthController, UserController } from "../api/controllers";
-import { UserRepository } from "../api/repositories";
-import { AuthService, UserService } from "../api/services";
+import { AuthController, UserController } from "../controllers";
+import { UserRepository } from "../repositories";
+import { AuthService, UserService } from "../services";
 
 export interface Dependencies {
   database: Connection;

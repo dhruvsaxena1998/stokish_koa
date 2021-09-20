@@ -1,6 +1,6 @@
 import { UserService } from "../services";
 
-import { Dependencies } from "../../injection";
+import { Dependencies } from "../injection";
 
 export class UserController {
   private _service: UserService;

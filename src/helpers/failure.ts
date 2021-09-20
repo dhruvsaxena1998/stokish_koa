@@ -1,5 +1,5 @@
 import { ObjectLiteral } from "typeorm";
-import { logger } from "../utils";
+import { logger } from "../utils/instance";
 
 export type ErrorMessage = string | ObjectLiteral;
 export type ErrorCode =

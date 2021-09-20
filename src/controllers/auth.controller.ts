@@ -1,8 +1,8 @@
 import { Context } from "koa";
 import { AuthService } from "../services";
 
-import { Dependencies } from "../../injection";
-import { Failure } from "../../helpers/failure";
+import { Dependencies } from "../injection";
+import { Failure } from "../helpers/failure";
 
 export class AuthController {
   private _service: AuthService;

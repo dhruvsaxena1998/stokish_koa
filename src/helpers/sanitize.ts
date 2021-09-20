@@ -1,7 +1,7 @@
 import { omit } from "lodash";
 import { ObjectLiteral } from "typeorm";
 
-import { UsersConfig } from "../entities/";
+import { config as UsersConfig } from "../entities/user.entity";
 
 const privateProperties = {
   users: UsersConfig.privateArrtibutes,

@@ -1,5 +1,5 @@
-import { Dependencies } from "../../injection";
-import { UserRepository } from "../repositories";
+import { Dependencies } from "../injection";
+import { UserRepository } from "../repositories/user.repository";
 
 export class UserService {
   readonly _repo: UserRepository;

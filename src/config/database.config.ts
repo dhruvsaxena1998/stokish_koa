@@ -1,8 +1,8 @@
+import { env } from "@dolanites/utils";
 import { createConnection, Connection, ConnectionOptions } from "typeorm";
 
 import { UsersEntity } from "../entities";
-import { env } from "@dolanites/utils";
-import { logger } from "../utils";
+import { logger } from "../utils/instance";
 
 const {
   DB_HOST = "localhost",

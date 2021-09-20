@@ -1,4 +1,4 @@
-import { UsersEntity } from "../../entities";
+import { SanitizedUser } from "./user.types";
 
 export interface IRegisterViaEmailDto {
   email: string;
@@ -18,5 +18,5 @@ export interface ILoginViaIdentifierDto {
 
 export interface IAuthInfo {
   jwt: string;
-  user: Omit<UsersEntity, "password" | "resetPasswordToken">;
+  user: SanitizedUser;
 }

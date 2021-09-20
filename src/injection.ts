@@ -1,9 +1,9 @@
 import * as Awilix from "awilix";
-
-import { AuthController, UserController } from "./api/controllers";
-import { AuthService, UserService } from "./api/services";
-import { UserRepository } from "./api/repositories";
 import { Connection } from "typeorm";
+
+import { AuthController, UserController } from "./controllers";
+import { AuthService, UserService } from "./services";
+import { UserRepository } from "./repositories";
 
 const Container = Awilix.createContainer({
   injectionMode: Awilix.InjectionMode.PROXY,
@@ -22,4 +22,4 @@ const setupInjections = (database: Connection): void => {
 };
 
 export { Container, setupInjections };
-export { Dependencies } from "./types/dependencies";
+export { Dependencies } from "./@types/dependencies";

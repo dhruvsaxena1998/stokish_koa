@@ -1,10 +1,10 @@
 import Koa, { DefaultState, DefaultContext } from "koa";
 import bodyParser from "koa-bodyparser";
-import { router } from "./config";
+import { router } from "./routes";
 
 // Utils
 import { env } from "@dolanites/utils";
-import { logger } from "./utils";
+import { logger } from "./utils/instance";
 
 // Types
 import { Connection } from "typeorm";
