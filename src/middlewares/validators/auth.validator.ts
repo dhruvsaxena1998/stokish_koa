@@ -1,11 +1,11 @@
 import { JSONSchemaType } from "ajv";
-import { ajv } from "../../../utils";
+import { ajv } from "../../utils/instance";
 
 import {
   ILoginViaIdentifierDto,
   IRegisterViaEmailDto,
   IRegisterViaPhoneDto,
-} from "../../interface";
+} from "../../@types/auth.types";
 
 const registerViaEmailSchema: JSONSchemaType<IRegisterViaEmailDto> = {
   type: "object",
@@ -18,6 +18,10 @@ const registerViaEmailSchema: JSONSchemaType<IRegisterViaEmailDto> = {
   additionalProperties: false,
 };
 
+export const registerViaEmailValidator = ajv.compile<IRegisterViaEmailDto>(
+  registerViaEmailSchema
+);
+
 const registerViaPhoneSchema: JSONSchemaType<IRegisterViaPhoneDto> = {
   type: "object",
   properties: {
@@ -27,6 +31,10 @@ const registerViaPhoneSchema: JSONSchemaType<IRegisterViaPhoneDto> = {
   required: ["contact", "countryCode"],
   additionalProperties: false,
 };
+
+export const registerPhoneValidator = ajv.compile<IRegisterViaPhoneDto>(
+  registerViaPhoneSchema
+);
 
 const loginViaIdentifierSchema: JSONSchemaType<ILoginViaIdentifierDto> = {
   type: "object",
@@ -38,8 +46,6 @@ const loginViaIdentifierSchema: JSONSchemaType<ILoginViaIdentifierDto> = {
   additionalProperties: false,
 };
 
-export const registerViaEmailValidator =
-  ajv.compile<IRegisterViaEmailDto>(registerViaEmailSchema);
-export const registerPhoneValidator =
-  ajv.compile<IRegisterViaPhoneDto>(registerViaPhoneSchema);
-export const loginViaIdentifierValidator = ajv.compile<ILoginViaIdentifierDto>(loginViaIdentifierSchema);
+export const loginViaIdentifierValidator = ajv.compile<ILoginViaIdentifierDto>(
+  loginViaIdentifierSchema
+);

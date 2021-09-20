@@ -1,13 +1,14 @@
 import Router from "@koa/router";
 
-import { AuthController } from "../controllers";
+import { AuthController } from "../controllers/auth.controller";
+
+import { validate } from "../middlewares/validate";
 import {
   registerViaEmailValidator,
   loginViaIdentifierValidator,
-  validateDto,
-} from "../middlewares/validators";
+} from "../middlewares/validators/auth.validator";
 
-import { Container } from "../../injection";
+import { Container } from "../injection";
 const authController = Container.resolve("authController") as AuthController;
 
 const router = new Router({
@@ -16,13 +17,13 @@ const router = new Router({
 
 router.post(
   "/local/login",
-  validateDto(loginViaIdentifierValidator),
+  validate(loginViaIdentifierValidator),
   authController.loginViaIdentifier
 );
 
 router.post(
   "/local/register",
-  validateDto(registerViaEmailValidator),
+  validate(registerViaEmailValidator),
   authController.registerViaEmail
 );
 

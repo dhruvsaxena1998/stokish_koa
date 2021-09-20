@@ -1,3 +1,5 @@
+import { Failure } from "../helpers/failure";
+
 import {
   DeepPartial,
   FindManyOptions,
@@ -25,7 +27,7 @@ export class SharedRepository<T> {
 
   create = async (body: DeepPartial<T> | null, instance?: T): Promise<T> => {
     if (!body && !instance)
-      throw new Error("Both body and instance cannot be undefined");
+      throw Failure.badRequest("Both body and instance cannot be empty");
 
     if (instance) {
       return this._entity.save(instance);
@@ -38,7 +40,7 @@ export class SharedRepository<T> {
   createInstance = async (body: DeepPartial<T> | null): Promise<T> => {
     if (body) return this._entity.create(body);
 
-    throw new Error("Body cannot be null");
+    throw Failure.badRequest("Body cannot be empty");
   };
 
   async update(id: number, body: DeepPartial<T>): Promise<T> {

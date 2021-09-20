@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 import { SharedEntityProperties } from "./shared.entity";
 
-import { UserRole } from "../api/interface/user.interface";
+import { UserRole } from "../@types/user.types";
 
 export const config = {
   collectionName: "users",
