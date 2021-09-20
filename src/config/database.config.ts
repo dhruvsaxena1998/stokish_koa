@@ -1,7 +1,7 @@
 import { createConnection, Connection, ConnectionOptions } from "typeorm";
 
 import { UsersEntity } from "../entities";
-import { env } from "@dolanites/utils.js";
+import { env } from "@dolanites/utils";
 import { logger } from "../utils";
 
 const {

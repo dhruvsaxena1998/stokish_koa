@@ -3,7 +3,7 @@ import bodyParser from "koa-bodyparser";
 import { router } from "./config";
 
 // Utils
-import { env } from "@dolanites/utils.js";
+import { env } from "@dolanites/utils";
 import { logger } from "./utils";
 
 // Types

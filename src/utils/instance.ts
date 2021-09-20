@@ -6,7 +6,7 @@ const ajv = new Ajv({ allErrors: true });
 useFormats(ajv);
 
 // Logger
-import { logger as Logger, env } from "@dolanites/utils.js";
+import { logger as Logger, env } from "@dolanites/utils";
 const logger = Logger();
 
 // Crypt
