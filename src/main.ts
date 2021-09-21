@@ -16,6 +16,7 @@ connectWithDatabase().then(async (db) => {
 
   const port = env.number('SERVER_PORT') || 5000;
   const host = env.string('SERVER_HOST') || 'localhost';
+
   const app = new App();
   app.run(port, host);
 });
