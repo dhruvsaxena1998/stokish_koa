@@ -1,12 +1,8 @@
-// Validator
-import Ajv from "ajv";
-import useFormats from "ajv-formats";
+import Ajv from 'ajv';
+import useFormats from 'ajv-formats';
+import { logger as Logger } from '@dolanites/utils';
 
-const ajv = new Ajv({ allErrors: true });
+export const ajv = new Ajv({ allErrors: true });
 useFormats(ajv);
 
-// Logger
-import { logger as Logger } from "@dolanites/utils";
-const logger = Logger();
-
-export { ajv, logger };
+export const logger = Logger();

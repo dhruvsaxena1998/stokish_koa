@@ -1,6 +1,6 @@
-import { env } from "@dolanites/utils";
+import { env } from '@dolanites/utils';
 
-import { verify as verifyJWT, sign as signJWT, JwtPayload } from "jsonwebtoken";
+import { verify as verifyJWT, sign as signJWT, JwtPayload } from 'jsonwebtoken';
 
 export interface IJwtPayload extends JwtPayload {
   sub: string;
@@ -8,14 +8,17 @@ export interface IJwtPayload extends JwtPayload {
 }
 
 export const sign = (payload: IJwtPayload): string => {
-  const { iss = env.string("SERVER_URL", ""), body, sub, ...rest } = payload;
+  const {
+    iss = env.string('SERVER_URL', ''),
+    body,
+    sub,
+    ...rest
+  } = payload;
 
-  return signJWT({ sub, body, ...rest }, env.string("JWT_SECRET", ""), {
+  return signJWT({ sub, body, ...rest }, env.string('JWT_SECRET', ''), {
     issuer: iss,
-    expiresIn: env.string("JWT_EXPIRES", "30d"),
+    expiresIn: env.string('JWT_EXPIRES', '30d'),
   });
 };
 
-export const verify = (token: string): JwtPayload => {
-  return <JwtPayload>verifyJWT(token, env.string("JWT_SECRET", ""));
-};
+export const verify = (token: string): JwtPayload => <JwtPayload>verifyJWT(token, env.string('JWT_SECRET', ''));

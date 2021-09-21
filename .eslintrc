@@ -7,9 +7,24 @@
     "ecmaVersion": "latest",
     "project": "./tsconfig.json"
   },
-  "plugins": ["@typescript-eslint"],
-  "extends": ["plugin:@typescript-eslint/recommended"],
+  "plugins": ["import", "@typescript-eslint"],
+  "extends": [
+    "airbnb-base",
+    "airbnb-typescript/base",
+    "plugin:@typescript-eslint/recommended"
+  ],
   "rules": {
-    "no-console": "error"
+    // No console [log/warn/error] allowed
+    "no-console": "error",
+    
+    // Can throw literal objects
+    "no-throw-literal": "off",
+    "@typescript-eslint/no-throw-literal": "off",
+
+    // Long line arrow functions can have linebreaks
+    "implicit-arrow-linebreak": "off",
+
+    // Can have linebreaks after operators
+    "operator-linebreak": "off"
   }
 }

@@ -1,51 +1,64 @@
-import { JSONSchemaType } from "ajv";
-import { ajv } from "../../utils/instance";
+import { JSONSchemaType } from 'ajv';
+import { ajv } from '../../utils/instance';
 
 import {
+  IConnectViaMagicLinkDto,
   ILoginViaIdentifierDto,
   IRegisterViaEmailDto,
   IRegisterViaPhoneDto,
-} from "../../@types/auth.types";
+} from '../../@types/auth.types';
 
 const registerViaEmailSchema: JSONSchemaType<IRegisterViaEmailDto> = {
-  type: "object",
+  type: 'object',
   properties: {
-    email: { type: "string", format: "email" },
-    username: { type: "string", minLength: 3 },
-    password: { type: "string", minLength: 6 },
+    email: { type: 'string', format: 'email' },
+    username: { type: 'string', minLength: 3 },
+    password: { type: 'string', minLength: 6 },
   },
-  required: ["email", "username", "password"],
+  required: ['email', 'username', 'password'],
   additionalProperties: false,
 };
 
 export const registerViaEmailValidator = ajv.compile<IRegisterViaEmailDto>(
-  registerViaEmailSchema
+  registerViaEmailSchema,
 );
 
 const registerViaPhoneSchema: JSONSchemaType<IRegisterViaPhoneDto> = {
-  type: "object",
+  type: 'object',
   properties: {
-    contact: { type: "string" },
-    countryCode: { type: "number" },
+    contact: { type: 'string' },
+    countryCode: { type: 'number' },
   },
-  required: ["contact", "countryCode"],
+  required: ['contact', 'countryCode'],
   additionalProperties: false,
 };
 
 export const registerPhoneValidator = ajv.compile<IRegisterViaPhoneDto>(
-  registerViaPhoneSchema
+  registerViaPhoneSchema,
 );
 
 const loginViaIdentifierSchema: JSONSchemaType<ILoginViaIdentifierDto> = {
-  type: "object",
+  type: 'object',
   properties: {
-    identifier: { type: "string" },
-    password: { type: "string" },
+    identifier: { type: 'string' },
+    password: { type: 'string' },
   },
-  required: ["identifier", "password"],
+  required: ['identifier', 'password'],
   additionalProperties: false,
 };
 
 export const loginViaIdentifierValidator = ajv.compile<ILoginViaIdentifierDto>(
-  loginViaIdentifierSchema
+  loginViaIdentifierSchema,
 );
+
+const connectViaMagicLinkSchema: JSONSchemaType<IConnectViaMagicLinkDto> = {
+  type: 'object',
+  properties: {
+    email: { type: 'string', format: 'email' },
+  },
+  required: ['email'],
+  additionalProperties: false,
+};
+
+export const connectViaMagicLinkValidator =
+  ajv.compile<IConnectViaMagicLinkDto>(connectViaMagicLinkSchema);

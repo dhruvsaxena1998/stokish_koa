@@ -1,10 +1,13 @@
-import { UserService } from "../services";
+import { UserService } from '../services';
 
-import { Dependencies } from "../injection";
+import { Dependencies } from '../@types/dependencies';
 
 export class UserController {
-  private _service: UserService;
+  private userService: UserService;
+
   constructor({ userService }: Dependencies) {
-    this._service = userService;
+    this.userService = userService;
   }
 }
+
+export default UserController;

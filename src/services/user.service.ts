@@ -1,9 +1,12 @@
-import { Dependencies } from "../injection";
-import { UserRepository } from "../repositories/user.repository";
+import { Dependencies } from '../@types/dependencies';
+import { UserRepository } from '../repositories/user.repository';
 
 export class UserService {
-  readonly _repo: UserRepository;
+  readonly userRepository: UserRepository;
+
   constructor({ userRepository }: Dependencies) {
-    this._repo = userRepository;
+    this.userRepository = userRepository;
   }
 }
+
+export default UserService;
