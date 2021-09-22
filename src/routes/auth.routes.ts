@@ -2,11 +2,12 @@ import Router from '@koa/router';
 
 import { AuthController } from '../controllers/auth.controller';
 
-import { validate } from '../middlewares/validate';
+import { validate, validateQuery } from '../middlewares/validate';
 import {
   registerViaEmailValidator,
   loginViaIdentifierValidator,
   connectViaMagicLinkValidator,
+  verifyViaMagicLinkValidator,
 } from '../middlewares/validators/auth.validator';
 
 import { Container } from '../injection';
@@ -33,6 +34,12 @@ router.post(
   '/magic',
   validate(connectViaMagicLinkValidator),
   authController.connectViaMagicLink,
+);
+
+router.get(
+  '/magic/verify',
+  validateQuery(verifyViaMagicLinkValidator),
+  authController.verifyViaMagicLink,
 );
 
 export { router };

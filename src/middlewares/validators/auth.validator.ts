@@ -6,6 +6,7 @@ import {
   ILoginViaIdentifierDto,
   IRegisterViaEmailDto,
   IRegisterViaPhoneDto,
+  IVerifyViaMagicLinkDto,
 } from '../../@types/auth.types';
 
 const registerViaEmailSchema: JSONSchemaType<IRegisterViaEmailDto> = {
@@ -62,3 +63,14 @@ const connectViaMagicLinkSchema: JSONSchemaType<IConnectViaMagicLinkDto> = {
 
 export const connectViaMagicLinkValidator =
   ajv.compile<IConnectViaMagicLinkDto>(connectViaMagicLinkSchema);
+
+const verifyViaMagicLink: JSONSchemaType<IVerifyViaMagicLinkDto> = {
+  type: 'object',
+  properties: {
+    token: { type: 'string' },
+  },
+  required: ['token'],
+};
+
+export const verifyViaMagicLinkValidator =
+  ajv.compile<IConnectViaMagicLinkDto>(verifyViaMagicLink);

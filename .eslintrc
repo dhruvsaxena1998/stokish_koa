@@ -16,7 +16,7 @@
   "rules": {
     // No console [log/warn/error] allowed
     "no-console": "error",
-    
+
     // Can throw literal objects
     "no-throw-literal": "off",
     "@typescript-eslint/no-throw-literal": "off",
@@ -25,6 +25,10 @@
     "implicit-arrow-linebreak": "off",
 
     // Can have linebreaks after operators
-    "operator-linebreak": "off"
+    "operator-linebreak": "off",
+
+    // Lines between each class members is irritating
+    "lines-between-class-members": "off",
+    "@typescript-eslint/lines-between-class-members": "off"
   }
 }

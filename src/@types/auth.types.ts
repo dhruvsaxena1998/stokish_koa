@@ -21,10 +21,13 @@ export interface IConnectViaMagicLinkDto {
   email: string;
 }
 
-export type SanitizedUser = Omit<UserEntity,
-'password' |
-'resetPasswordToken' |
-'totp'
+export interface IVerifyViaMagicLinkDto {
+  token: string;
+}
+
+export type SanitizedUser = Omit<
+UserEntity,
+'password' | 'resetPasswordToken' | 'totp'
 >;
 
 export interface IAuthInfo {

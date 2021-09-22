@@ -3,6 +3,7 @@ import { AuthService } from '../services';
 
 import { Dependencies } from '../@types/dependencies';
 import { Failure } from '../helpers/failure';
+import { IVerifyViaMagicLinkDto } from '../@types/auth.types';
 
 export class AuthController {
   private authService: AuthService;
@@ -41,6 +42,14 @@ export class AuthController {
     const response = await this.authService.connectViaMagicLink(
       ctx.request.body,
     );
+    ctx.status = 200;
+    ctx.body = response;
+  };
+
+  verifyViaMagicLink = async (ctx: Context): Promise<void> => {
+    const { token } = (<unknown>ctx.request.query) as IVerifyViaMagicLinkDto;
+    const response = await this.authService.verifyViaMagicLink({ token });
+
     ctx.status = 200;
     ctx.body = response;
   };

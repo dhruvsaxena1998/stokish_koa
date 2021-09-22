@@ -14,6 +14,7 @@ import {
   IConnectViaMagicLinkDto,
   ILoginViaIdentifierDto,
   IRegisterViaEmailDto,
+  IVerifyViaMagicLinkDto,
   SanitizedUser,
 } from '../@types/auth.types';
 import { TokenRepository } from '../repositories';
@@ -134,6 +135,55 @@ export class AuthService {
       role: user.role,
     };
   }
+
+  verifyViaMagicLink = async (
+    body: IVerifyViaMagicLinkDto,
+  ): Promise<IAuthInfo> => {
+    /*
+     * Steps:
+     *  1. Get token from body
+     *  2. Find token in TokenEntity
+     *  3. If token exists get the user from it and make token null
+     *  4. Sanitize user
+     *  5. Create jwt from user data
+     *  6. Return jwt and user data
+     */
+
+    const token = await this.tokenRepository.findOne({
+      where: {
+        magicToken: body.token,
+      },
+    });
+
+    if (!token) {
+      throw Failure.badRequest('Invalid token', ['token']);
+    }
+
+    const user = await this.userRepository.findById(token.userId);
+    if (!user) {
+      throw Failure.forbidden();
+    }
+
+    const sanitizedUser = sanitizeEntity('users', user) as SanitizedUser;
+
+    const jwt = sign({
+      sub: String(sanitizedUser.id),
+      body: {
+        user: sanitizedUser.username,
+        role: sanitizedUser.role,
+      },
+    });
+
+    // Remove token after creating jwt
+    this.tokenRepository.update(token.id, {
+      magicToken: null,
+    });
+
+    return {
+      jwt,
+      user: sanitizedUser,
+    };
+  };
 }
 
 export default AuthService;

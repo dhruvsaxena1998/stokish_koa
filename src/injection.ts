@@ -4,6 +4,7 @@ import { Connection } from 'typeorm';
 import { AuthController, UserController } from './controllers';
 import { AuthService, UserService } from './services';
 import { TokenRepository, UserRepository } from './repositories';
+import { DIKeys } from './@types/dependencies';
 
 const Container = Awilix.createContainer({
   injectionMode: Awilix.InjectionMode.PROXY,
@@ -11,7 +12,7 @@ const Container = Awilix.createContainer({
 
 // ? Remember to add in Depedencies interface
 const setupInjections = (database: Connection): void => {
-  Container.register({
+  const di: DIKeys<Awilix.Resolver<unknown>> = {
     authController: Awilix.asClass(AuthController),
     userController: Awilix.asClass(UserController),
     authService: Awilix.asClass(AuthService),
@@ -19,7 +20,9 @@ const setupInjections = (database: Connection): void => {
     userRepository: Awilix.asClass(UserRepository),
     tokenRepository: Awilix.asClass(TokenRepository),
     database: Awilix.asValue(database),
-  });
+  };
+
+  Container.register(di);
 };
 
 export { Container, setupInjections };

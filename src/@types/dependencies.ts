@@ -3,7 +3,20 @@ import { AuthController, UserController } from '../controllers';
 import { TokenRepository, UserRepository } from '../repositories';
 import { AuthService, UserService } from '../services';
 
-export interface Dependencies {
+type DepedenciesKeys =
+  | 'database'
+  | 'authController'
+  | 'userController'
+  | 'authService'
+  | 'userService'
+  | 'userRepository'
+  | 'tokenRepository';
+
+export type DIKeys<T> = {
+  [key in DepedenciesKeys]: T;
+};
+
+export class Dependencies implements DIKeys<unknown> {
   database: Connection;
   authController: AuthController;
   userController: UserController;

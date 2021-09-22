@@ -37,7 +37,7 @@ export class TokenEntity extends SharedEntityProperties {
     default: null,
     type: 'text',
   })
-  magicToken: string;
+  magicToken: string | null;
 
   @Column({
     name: 'totp',
