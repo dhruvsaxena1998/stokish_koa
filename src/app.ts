@@ -3,6 +3,9 @@ import bodyParser from 'koa-bodyparser';
 import { Server } from 'http';
 import { Connection } from 'typeorm';
 
+import helmet from 'koa-helmet';
+import cors from '@koa/cors';
+
 import { router } from './routes';
 import { logger } from './utils/instance';
 import { errorHandler } from './middlewares/error-handler';
@@ -21,17 +24,19 @@ export class App {
   }
 
   private setup() {
+    this.app.use(cors());
+    this.app.use(helmet());
     this.app.use(
       bodyParser({
         enableTypes: ['json', 'form'],
       }),
     );
 
-    // Set ctx.state.user property
-    this.app.use(authenticate);
-
     // Centeralized Error handler
     this.app.use(errorHandler);
+
+    // Set ctx.state.user property
+    this.app.use(authenticate);
     this.app.use(router.routes()).use(router.allowedMethods());
   }
 
