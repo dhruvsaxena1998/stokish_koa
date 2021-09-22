@@ -7,6 +7,7 @@ export type ErrorCode =
   | 'not-found'
   | 'forbidden'
   | 'un-authorized'
+  | 'rate-limit'
   | 'internal-server';
 export type ErrorConstraint = string | string[];
 
@@ -32,6 +33,13 @@ export class Failure {
     constraint?: ErrorConstraint,
   ): Failure {
     return new Failure(404, message, 'not-found', constraint);
+  }
+
+  static limited(
+    message: ErrorMessage = 'Too many requests',
+    constraint: ErrorConstraint = ['rate-limit'],
+  ): Failure {
+    return new Failure(429, message, 'rate-limit', constraint);
   }
 
   static unAuthorized(message: ErrorMessage = 'Unauthorized'): Failure {

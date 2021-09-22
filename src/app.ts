@@ -8,6 +8,8 @@ import cors from '@koa/cors';
 
 import { router } from './routes';
 import { logger } from './utils/instance';
+
+import { rateLimiter } from './middlewares/rate-limiter';
 import { errorHandler } from './middlewares/error-handler';
 import { authenticate } from './middlewares/authorization';
 
@@ -36,6 +38,7 @@ export class App {
     this.app.use(errorHandler);
 
     // Set ctx.state.user property
+    this.app.use(rateLimiter());
     this.app.use(authenticate);
     this.app.use(router.routes()).use(router.allowedMethods());
   }

@@ -1,8 +1,8 @@
-import { Context } from 'koa';
 import { UserService } from '../services';
-
-import { Dependencies } from '../@types/dependencies';
 import { Failure } from '../helpers/failure';
+
+import { IContext } from '../@types/koa';
+import { Dependencies } from '../@types/dependencies';
 
 export class UserController {
   private userService: UserService;
@@ -11,7 +11,7 @@ export class UserController {
     this.userService = userService;
   }
 
-  me = async (ctx: Context): Promise<void> => {
+  me = async (ctx: IContext): Promise<void> => {
     if (!ctx.state.user) {
       throw Failure.forbidden();
     }
