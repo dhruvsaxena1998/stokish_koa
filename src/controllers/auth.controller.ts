@@ -54,5 +54,3 @@ export class AuthController {
     ctx.body = response;
   };
 }
-
-export default AuthController;

@@ -12,4 +12,3 @@ const router = new Router({
 router.get('/me', usersController.me);
 
 export { router };
-export default router;

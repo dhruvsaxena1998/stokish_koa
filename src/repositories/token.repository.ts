@@ -7,5 +7,3 @@ export class TokenRepository extends SharedRepository<TokenEntity> {
     super(database.getRepository(TokenEntity));
   }
 }
-
-export default TokenRepository;

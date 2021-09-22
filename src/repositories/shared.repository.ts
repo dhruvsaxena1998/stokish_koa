@@ -54,5 +54,3 @@ export class SharedRepository<T> {
     return entity;
   };
 }
-
-export default SharedRepository;

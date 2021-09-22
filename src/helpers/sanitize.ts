@@ -11,5 +11,3 @@ export const sanitizeEntity = (
   entity: keyof typeof privateProperties,
   data: ObjectLiteral,
 ): Partial<ObjectLiteral> => omit(data, privateProperties[entity]);
-
-export default sanitizeEntity;

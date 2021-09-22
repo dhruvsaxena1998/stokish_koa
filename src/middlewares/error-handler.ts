@@ -27,5 +27,3 @@ export const errorHandler = async (ctx: Context, next: Next): Promise<void> => {
     ctx.status = 500;
   }
 };
-
-export default errorHandler;

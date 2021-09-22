@@ -12,7 +12,7 @@ import { connectWithDatabase } from './config/database.config';
 connectWithDatabase().then(async (db) => {
   setupInjections(db);
 
-  const { default: App } = await import('./app');
+  const { App } = await import('./app');
 
   const port = env.number('SERVER_PORT') || 5000;
   const host = env.string('SERVER_HOST') || 'localhost';

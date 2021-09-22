@@ -22,5 +22,3 @@ export class SharedEntityProperties {
   })
   isDeleted: boolean;
 }
-
-export default SharedEntityProperties;

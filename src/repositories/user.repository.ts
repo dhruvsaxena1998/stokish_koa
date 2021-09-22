@@ -17,5 +17,3 @@ export class UserRepository extends SharedRepository<UserEntity> {
     });
   }
 }
-
-export default UserRepository;

@@ -10,4 +10,3 @@ router.use(AuthRouter.routes());
 router.use(UserRouter.routes());
 
 export { router };
-export default router;

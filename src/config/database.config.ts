@@ -32,5 +32,3 @@ export const connectWithDatabase = async (): Promise<Connection> => {
   logger.debug(`Connected to ${options.type}:${options.database}`);
   return connection;
 };
-
-export default connectWithDatabase;

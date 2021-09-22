@@ -8,7 +8,7 @@ import { logger } from './utils/instance';
 import { errorHandler } from './middlewares/error-handler';
 import { authenticate } from './middlewares/authorization';
 
-export default class App {
+export class App {
   app: Koa<DefaultState, DefaultContext>;
 
   server: Server;

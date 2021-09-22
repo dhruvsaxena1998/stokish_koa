@@ -29,6 +29,9 @@
 
     // Lines between each class members is irritating
     "lines-between-class-members": "off",
-    "@typescript-eslint/lines-between-class-members": "off"
+    "@typescript-eslint/lines-between-class-members": "off",
+
+    // Disable default exporting
+    "import/prefer-default-export": "off"
   }
 }

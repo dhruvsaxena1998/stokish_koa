@@ -20,5 +20,3 @@ export class UserController {
     ctx.body = ctx.state.user;
   };
 }
-
-export default UserController;

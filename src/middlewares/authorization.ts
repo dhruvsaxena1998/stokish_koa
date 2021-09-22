@@ -20,5 +20,3 @@ export const authenticate = async (ctx: Context, next: Next): Promise<void> => {
   ctx.state.user = null;
   return next();
 };
-
-export default authenticate;
