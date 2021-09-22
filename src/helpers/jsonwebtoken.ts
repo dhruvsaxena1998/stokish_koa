@@ -21,4 +21,4 @@ export const sign = (payload: IJwtPayload): string => {
   });
 };
 
-export const verify = (token: string): JwtPayload => <JwtPayload>verifyJWT(token, env.string('JWT_SECRET', ''));
+export const verify = (token: string): IJwtPayload => <IJwtPayload>verifyJWT(token, env.string('JWT_SECRET', ''));
