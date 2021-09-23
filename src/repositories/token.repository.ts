@@ -1,4 +1,4 @@
-import { TokenEntity } from '../entities';
+import { TokenEntity } from '../entities/tokens.entity';
 import { Dependencies } from '../@types/dependencies';
 import { SharedRepository } from './shared.repository';
 

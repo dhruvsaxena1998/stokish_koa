@@ -1,25 +1,38 @@
-import * as Awilix from 'awilix';
+import {
+  createContainer,
+  InjectionMode,
+  asClass,
+  asValue,
+  Resolver,
+} from 'awilix';
 import { Connection } from 'typeorm';
 
-import { AuthController, UserController } from './controllers';
-import { AuthService, UserService } from './services';
-import { TokenRepository, UserRepository } from './repositories';
+import { AuthController, PostController, UserController } from './controllers';
+import { AuthService, PostService, UserService } from './services';
+import {
+  PostRepository,
+  TokenRepository,
+  UserRepository,
+} from './repositories';
 import { DIKeys } from './@types/dependencies';
 
-const Container = Awilix.createContainer({
-  injectionMode: Awilix.InjectionMode.PROXY,
+const Container = createContainer({
+  injectionMode: InjectionMode.PROXY,
 });
 
 // ? Remember to add in Depedencies interface
 const setupInjections = (database: Connection): void => {
-  const di: DIKeys<Awilix.Resolver<unknown>> = {
-    authController: Awilix.asClass(AuthController),
-    userController: Awilix.asClass(UserController),
-    authService: Awilix.asClass(AuthService),
-    userService: Awilix.asClass(UserService),
-    userRepository: Awilix.asClass(UserRepository),
-    tokenRepository: Awilix.asClass(TokenRepository),
-    database: Awilix.asValue(database),
+  const di: DIKeys<Resolver<unknown>> = {
+    authController: asClass(AuthController),
+    postController: asClass(PostController),
+    userController: asClass(UserController),
+    authService: asClass(AuthService),
+    postService: asClass(PostService),
+    userService: asClass(UserService),
+    userRepository: asClass(UserRepository),
+    postRepository: asClass(PostRepository),
+    tokenRepository: asClass(TokenRepository),
+    database: asValue(database),
   };
 
   Container.register(di);

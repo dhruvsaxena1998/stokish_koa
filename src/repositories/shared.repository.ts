@@ -8,7 +8,7 @@ import {
 import { Failure } from '../helpers/failure';
 
 export class SharedRepository<T> {
-  readonly entity: Repository<T>;
+  entity: Repository<T>;
 
   constructor(entity: Repository<T>) {
     this.entity = entity;
