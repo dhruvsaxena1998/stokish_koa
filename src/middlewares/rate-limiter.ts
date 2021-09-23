@@ -24,7 +24,8 @@ export const rateLimiter = (
   return async (ctx: Context, next: Next) => {
     try {
       await limiter.consume(ctx.ip);
-      return await next();
+      // eslint-disable-next-line @typescript-eslint/return-await
+      return next();
     } catch (e) {
       throw Failure.limited();
     }
