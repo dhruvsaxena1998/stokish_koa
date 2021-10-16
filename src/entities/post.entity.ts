@@ -15,7 +15,7 @@ export const config: EntityConfig = {
     name: 'post',
     description: '',
   },
-  privateAttributes: [],
+  privateAttributes: ['author.password'],
 };
 
 @Entity({ name: 'posts' })
